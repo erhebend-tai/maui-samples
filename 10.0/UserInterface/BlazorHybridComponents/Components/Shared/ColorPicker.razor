@@ -1,0 +1,24 @@
+@* Native color input that previews the selection. *@
+
+<div class="color-picker">
+    <label for="color-pick">Pick a color</label>
+    <input id="color-pick" type="color" value="@Color" @oninput="OnInput" />
+    <span class="color-swatch" style="background:@Color"></span>
+    <code class="color-value" data-testid="color-value">@Color</code>
+</div>
+
+@code {
+    [Parameter] public string Color { get; set; } = "#512BD4";
+    [Parameter] public EventCallback<string> ColorChanged { get; set; }
+
+    private async Task OnInput(ChangeEventArgs e)
+    {
+        var newColor = e.Value?.ToString() ?? Color;
+        if (newColor == Color) return;
+        Color = newColor;
+        if (ColorChanged.HasDelegate)
+        {
+            await ColorChanged.InvokeAsync(Color);
+        }
+    }
+}

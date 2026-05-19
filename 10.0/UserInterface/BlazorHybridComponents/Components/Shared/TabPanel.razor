@@ -1,0 +1,20 @@
+@* A single panel inside a <Tabs> container. *@
+
+@if (Parent is not null && Parent.IsActive(this))
+{
+    <div class="tab-panel" role="tabpanel">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [CascadingParameter] public Tabs? Parent { get; set; }
+
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Parent?.Register(this);
+    }
+}

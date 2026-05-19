@@ -1,0 +1,21 @@
+@* A reusable card container that wraps a single component on the test page. *@
+
+<section class="card" data-testid="@TestId">
+    <header class="card-header">
+        <h2 class="card-title">@Title</h2>
+        @if (!string.IsNullOrWhiteSpace(Description))
+        {
+            <p class="card-description">@Description</p>
+        }
+    </header>
+    <div class="card-body">
+        @ChildContent
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public string? TestId { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

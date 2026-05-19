@@ -1,0 +1,52 @@
+@* Simple to-do list with add, toggle complete, and remove. *@
+
+<div class="todo">
+    <form class="todo-input" @onsubmit="AddItem" @onsubmit:preventDefault="true">
+        <input type="text" placeholder="What needs doing?" @bind="_newItem" @bind:event="oninput" />
+        <button type="submit" class="btn btn-primary" disabled="@string.IsNullOrWhiteSpace(_newItem)">Add</button>
+    </form>
+
+    @if (_items.Count == 0)
+    {
+        <p class="todo-empty">No items yet — add one above.</p>
+    }
+    else
+    {
+        <ul class="todo-list">
+            @foreach (var item in _items)
+            {
+                <li class="todo-item @(item.IsDone ? "done" : "")">
+                    <label>
+                        <input type="checkbox" checked="@item.IsDone" @onchange="() => Toggle(item)" />
+                        <span>@item.Text</span>
+                    </label>
+                    <button class="btn btn-ghost btn-small" @onclick="() => Remove(item)">Remove</button>
+                </li>
+            }
+        </ul>
+        <p class="todo-status" data-testid="todo-status">
+            @_items.Count(i => i.IsDone) of @_items.Count complete
+        </p>
+    }
+</div>
+
+@code {
+    private readonly List<TodoItem> _items = new();
+    private string _newItem = string.Empty;
+
+    private void AddItem()
+    {
+        if (string.IsNullOrWhiteSpace(_newItem)) return;
+        _items.Add(new TodoItem { Text = _newItem.Trim() });
+        _newItem = string.Empty;
+    }
+
+    private void Toggle(TodoItem item) => item.IsDone = !item.IsDone;
+    private void Remove(TodoItem item) => _items.Remove(item);
+
+    private sealed class TodoItem
+    {
+        public string Text { get; set; } = string.Empty;
+        public bool IsDone { get; set; }
+    }
+}

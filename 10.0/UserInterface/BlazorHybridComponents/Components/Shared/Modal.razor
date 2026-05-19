@@ -1,0 +1,42 @@
+@* Lightweight modal dialog driven by a button. *@
+
+<div class="modal-demo">
+    <button class="btn btn-primary" @onclick="Open">Open dialog</button>
+    <p class="modal-status">Last action: <strong>@_lastAction</strong></p>
+</div>
+
+@if (_isOpen)
+{
+    <div class="modal-backdrop" @onclick="Cancel">
+        <div class="modal-window" @onclick:stopPropagation="true" role="dialog" aria-modal="true">
+            <h3 class="modal-title">@Title</h3>
+            <p class="modal-message">@Message</p>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" @onclick="Cancel">Cancel</button>
+                <button class="btn btn-primary" @onclick="Confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public string Title { get; set; } = "Confirm action";
+    [Parameter] public string Message { get; set; } = "Are you sure you want to continue?";
+
+    private bool _isOpen;
+    private string _lastAction = "(none)";
+
+    private void Open() => _isOpen = true;
+
+    private void Confirm()
+    {
+        _isOpen = false;
+        _lastAction = "Confirmed";
+    }
+
+    private void Cancel()
+    {
+        _isOpen = false;
+        _lastAction = "Cancelled";
+    }
+}

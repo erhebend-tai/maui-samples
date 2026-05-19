@@ -1,0 +1,79 @@
+@* EditForm with DataAnnotations validation and submit feedback. *@
+
+<EditForm Model="_model" OnValidSubmit="HandleValidSubmit" class="form">
+    <DataAnnotationsValidator />
+
+    <div class="form-row">
+        <label for="form-name">Name</label>
+        <InputText id="form-name" @bind-Value="_model.Name" />
+        <ValidationMessage For="@(() => _model.Name)" />
+    </div>
+
+    <div class="form-row">
+        <label for="form-email">Email</label>
+        <InputText id="form-email" @bind-Value="_model.Email" />
+        <ValidationMessage For="@(() => _model.Email)" />
+    </div>
+
+    <div class="form-row">
+        <label for="form-age">Age</label>
+        <InputNumber id="form-age" @bind-Value="_model.Age" />
+        <ValidationMessage For="@(() => _model.Age)" />
+    </div>
+
+    <div class="form-row">
+        <label>
+            <InputCheckbox @bind-Value="_model.Subscribe" />
+            Subscribe to the newsletter
+        </label>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-ghost" @onclick="Clear">Clear</button>
+    </div>
+
+    @if (_lastSubmitted is not null)
+    {
+        <div class="form-result" data-testid="form-result">
+            Submitted: @_lastSubmitted.Name &lt;@_lastSubmitted.Email&gt;, age @_lastSubmitted.Age,
+            @(_lastSubmitted.Subscribe ? "subscribed" : "not subscribed").
+        </div>
+    }
+</EditForm>
+
+@code {
+    private FormModel _model = new();
+    private FormModel? _lastSubmitted;
+
+    private void HandleValidSubmit()
+    {
+        _lastSubmitted = new FormModel
+        {
+            Name = _model.Name,
+            Email = _model.Email,
+            Age = _model.Age,
+            Subscribe = _model.Subscribe
+        };
+    }
+
+    private void Clear()
+    {
+        _model = new FormModel();
+        _lastSubmitted = null;
+    }
+
+    private sealed class FormModel
+    {
+        [Required, StringLength(50)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required, EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Range(1, 120, ErrorMessage = "Age must be between 1 and 120.")]
+        public int Age { get; set; } = 18;
+
+        public bool Subscribe { get; set; }
+    }
+}

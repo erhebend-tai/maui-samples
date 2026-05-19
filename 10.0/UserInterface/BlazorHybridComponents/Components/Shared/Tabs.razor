@@ -1,0 +1,43 @@
+@* Tabs container. Children are TabPanel components registered via cascading value. *@
+
+<CascadingValue Value="this" IsFixed="true">
+    <div class="tabs">
+        <div class="tab-strip" role="tablist">
+            @foreach (var panel in _panels)
+            {
+                var isActive = panel == _active;
+                <button type="button"
+                        role="tab"
+                        class="tab @(isActive ? "active" : "")"
+                        aria-selected="@isActive"
+                        @onclick="() => Activate(panel)">
+                    @panel.Title
+                </button>
+            }
+        </div>
+        <div class="tab-body">
+            @ChildContent
+        </div>
+    </div>
+</CascadingValue>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private readonly List<TabPanel> _panels = new();
+    private TabPanel? _active;
+
+    public bool IsActive(TabPanel panel) => panel == _active;
+
+    internal void Register(TabPanel panel)
+    {
+        _panels.Add(panel);
+        _active ??= panel;
+        StateHasChanged();
+    }
+
+    private void Activate(TabPanel panel)
+    {
+        _active = panel;
+    }
+}
