@@ -1,0 +1,45 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31611.283
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Diagnostics.Telemetry", "Maui.Diagnostics.Telemetry\Maui.Diagnostics.Telemetry.csproj", "{75C4E3BC-D51C-4486-8F81-76F21B922726}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Diagnostics.StackTracing", "Maui.Diagnostics.StackTracing\Maui.Diagnostics.StackTracing.csproj", "{C4286148-BDE0-40D0-B9FF-1F7D3E7668E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Diagnostics.Logging", "Maui.Diagnostics.Logging\Maui.Diagnostics.Logging.csproj", "{051341B9-FEAD-452F-9019-05A8189FD0D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiagnosticsDemo", "DiagnosticsDemo\DiagnosticsDemo.csproj", "{07F744AE-37AC-46AF-A943-559C07463A37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75C4E3BC-D51C-4486-8F81-76F21B922726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C4E3BC-D51C-4486-8F81-76F21B922726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C4E3BC-D51C-4486-8F81-76F21B922726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C4E3BC-D51C-4486-8F81-76F21B922726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4286148-BDE0-40D0-B9FF-1F7D3E7668E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4286148-BDE0-40D0-B9FF-1F7D3E7668E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4286148-BDE0-40D0-B9FF-1F7D3E7668E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4286148-BDE0-40D0-B9FF-1F7D3E7668E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{051341B9-FEAD-452F-9019-05A8189FD0D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051341B9-FEAD-452F-9019-05A8189FD0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051341B9-FEAD-452F-9019-05A8189FD0D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051341B9-FEAD-452F-9019-05A8189FD0D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F744AE-37AC-46AF-A943-559C07463A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07F744AE-37AC-46AF-A943-559C07463A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07F744AE-37AC-46AF-A943-559C07463A37}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{07F744AE-37AC-46AF-A943-559C07463A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07F744AE-37AC-46AF-A943-559C07463A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F744AE-37AC-46AF-A943-559C07463A37}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {734E2443-7CBD-4F2F-9C39-DFE8CB91F38C}
+	EndGlobalSection
+EndGlobal

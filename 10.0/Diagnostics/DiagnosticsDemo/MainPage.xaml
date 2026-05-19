@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DiagnosticsDemo.MainPage"
+             Title="MAUI Diagnostics">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="MAUI Diagnostics pseudo libraries"
+                   FontSize="20"
+                   FontAttributes="Bold" />
+
+            <Label Text="Each button exercises one of the wrapper libraries. The latest result appears below."
+                   FontSize="13" />
+
+            <Button x:Name="TrackEventButton"
+                    Text="Track event (telemetry)"
+                    Clicked="OnTrackEventClicked" />
+
+            <Button x:Name="ThrowCaptureButton"
+                    Text="Throw and capture (stack tracing)"
+                    Clicked="OnThrowCaptureClicked" />
+
+            <Button x:Name="LogMessageButton"
+                    Text="Log message (logging)"
+                    Clicked="OnLogMessageClicked" />
+
+            <Label Text="Result:"
+                   FontAttributes="Bold"
+                   Margin="0,15,0,0" />
+
+            <Label x:Name="ResultLabel"
+                   Text="(nothing yet)"
+                   FontFamily="OpenSansRegular"
+                   FontSize="12"
+                   LineBreakMode="WordWrap" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
