@@ -1,0 +1,26 @@
+@* Show/hide body content with an expand/collapse button. *@
+
+<div class="collapsible @(_open ? "open" : "")">
+    <button type="button" class="collapsible-header" @onclick="Toggle" aria-expanded="@_open">
+        <span class="chevron">@(_open ? "▾" : "▸")</span>
+        <span>@Header</span>
+    </button>
+    @if (_open)
+    {
+        <div class="collapsible-body">
+            @ChildContent
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Header { get; set; } = string.Empty;
+    [Parameter] public bool InitiallyOpen { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private bool _open;
+
+    protected override void OnInitialized() => _open = InitiallyOpen;
+
+    private void Toggle() => _open = !_open;
+}

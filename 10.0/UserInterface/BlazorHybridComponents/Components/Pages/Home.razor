@@ -1,0 +1,94 @@
+@page "/"
+
+<div class="hero">
+    <h1>Blazor Hybrid Components</h1>
+    <p>Every component in this app is rendered below so you can exercise them together on a single page.</p>
+</div>
+
+<div class="component-grid">
+
+    <Card Title="Counter" Description="Increment, decrement, and reset with an adjustable step." TestId="card-counter">
+        <Counter />
+    </Card>
+
+    <Card Title="Stopwatch" Description="Timer-driven UI updates from a background thread." TestId="card-stopwatch">
+        <StopWatch />
+    </Card>
+
+    <Card Title="Toggle switch" Description="Two-way bindable boolean control." TestId="card-toggle">
+        <ToggleSwitch @bind-Value="_toggle" OnLabel="Enabled" OffLabel="Disabled" />
+        <p class="card-footnote">Bound value: <strong>@_toggle</strong></p>
+    </Card>
+
+    <Card Title="Rating" Description="Click a star to set the rating; raises a change event." TestId="card-rating">
+        <Rating Value="_rating" ValueChanged="OnRatingChanged" />
+        <p class="card-footnote">Selected rating: <strong>@_rating</strong></p>
+    </Card>
+
+    <Card Title="Color picker" Description="HTML color input bound back to the page." TestId="card-color">
+        <ColorPicker @bind-Color="_color" />
+        <p class="card-footnote">Selected color: <strong style="color:@_color">@_color</strong></p>
+    </Card>
+
+    <Card Title="Collapsible panel" Description="Expand and collapse a content region." TestId="card-collapsible">
+        <CollapsiblePanel Header="Details" InitiallyOpen="false">
+            <p>This content is only mounted while the panel is open.</p>
+            <ul>
+                <li>Use the chevron to toggle.</li>
+                <li>Useful for FAQs and accordions.</li>
+            </ul>
+        </CollapsiblePanel>
+    </Card>
+
+    <Card Title="Tabs" Description="Active tab is tracked via a cascading parameter." TestId="card-tabs">
+        <Tabs>
+            <TabPanel Title="Overview">
+                <p>Tabs share state through a cascading reference to the parent <code>Tabs</code> component.</p>
+            </TabPanel>
+            <TabPanel Title="Details">
+                <p>Switch between panels to verify only the active panel is rendered.</p>
+            </TabPanel>
+            <TabPanel Title="Notes">
+                <p>Each <code>TabPanel</code> registers itself on initialization.</p>
+            </TabPanel>
+        </Tabs>
+    </Card>
+
+    <Card Title="Modal dialog" Description="Backdrop-driven dialog with Confirm and Cancel." TestId="card-modal">
+        <Modal Title="Delete item?" Message="This action cannot be undone." />
+    </Card>
+
+    <Card Title="To-do list" Description="Add, toggle, and remove items in local state." TestId="card-todo">
+        <TodoList />
+    </Card>
+
+    <Card Title="Validated form" Description="EditForm with DataAnnotations validation." TestId="card-form">
+        <FormDemo />
+    </Card>
+
+</div>
+
+<div class="event-log-wrapper">
+    <EventLog @ref="_log" />
+</div>
+
+@code {
+    private EventLog? _log;
+    private bool _toggle;
+    private int _rating = 3;
+    private string _color = "#512BD4";
+
+    private void OnRatingChanged(int value)
+    {
+        _rating = value;
+        _log?.Log($"Rating changed to {value}.");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _log?.Log("Page ready — all components mounted.");
+        }
+    }
+}

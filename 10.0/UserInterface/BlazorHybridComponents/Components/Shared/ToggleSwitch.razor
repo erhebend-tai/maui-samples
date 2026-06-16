@@ -1,0 +1,21 @@
+@* Two-way bindable toggle switch with on/off labels. *@
+
+<label class="toggle">
+    <input type="checkbox" checked="@Value" @onchange="OnChange" />
+    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    <span class="toggle-label">@(Value ? OnLabel : OffLabel)</span>
+</label>
+
+@code {
+    [Parameter] public bool Value { get; set; }
+    [Parameter] public EventCallback<bool> ValueChanged { get; set; }
+    [Parameter] public string OnLabel { get; set; } = "On";
+    [Parameter] public string OffLabel { get; set; } = "Off";
+
+    private async Task OnChange(ChangeEventArgs e)
+    {
+        var newValue = e.Value is bool b && b;
+        Value = newValue;
+        await ValueChanged.InvokeAsync(newValue);
+    }
+}

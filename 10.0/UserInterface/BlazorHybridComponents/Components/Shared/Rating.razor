@@ -1,0 +1,26 @@
+@* Five-star rating selector. *@
+
+<div class="rating" role="radiogroup" aria-label="Rating">
+    @for (var i = 1; i <= Max; i++)
+    {
+        var value = i;
+        <button type="button"
+                class="star @(value <= Value ? "filled" : "")"
+                role="radio"
+                aria-checked="@(value == Value)"
+                @onclick="() => Set(value)">★</button>
+    }
+    <span class="rating-value" data-testid="rating-value">@Value / @Max</span>
+</div>
+
+@code {
+    [Parameter] public int Value { get; set; }
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+    [Parameter] public int Max { get; set; } = 5;
+
+    private async Task Set(int value)
+    {
+        Value = value;
+        await ValueChanged.InvokeAsync(value);
+    }
+}

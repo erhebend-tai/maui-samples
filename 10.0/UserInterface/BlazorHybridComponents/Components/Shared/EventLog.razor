@@ -1,0 +1,40 @@
+@* Rolling event log surface; the page writes entries via the exposed Log() method. *@
+
+<div class="event-log" data-testid="event-log">
+    <header class="event-log-header">
+        <strong>Event log</strong>
+        <button class="btn btn-ghost btn-small" @onclick="Clear">Clear</button>
+    </header>
+    @if (_entries.Count == 0)
+    {
+        <p class="event-log-empty">No events yet. Interact with the components above.</p>
+    }
+    else
+    {
+        <ol class="event-log-list">
+            @foreach (var entry in _entries)
+            {
+                <li><time>@entry.Time.ToString("HH:mm:ss")</time> — @entry.Message</li>
+            }
+        </ol>
+    }
+</div>
+
+@code {
+    private readonly LinkedList<Entry> _entries = new();
+    private const int MaxEntries = 20;
+
+    public void Log(string message)
+    {
+        _entries.AddFirst(new Entry(DateTime.Now, message));
+        while (_entries.Count > MaxEntries) _entries.RemoveLast();
+        StateHasChanged();
+    }
+
+    private void Clear()
+    {
+        _entries.Clear();
+    }
+
+    private sealed record Entry(DateTime Time, string Message);
+}
